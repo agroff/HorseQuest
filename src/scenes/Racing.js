@@ -1,4 +1,7 @@
 Crafty.scene('Racing', function() {
+    Game.player.at(68,12);
+    Game.player.hide();
+    Game.currentRace.type = "race";
 
     Track.reset();
 
@@ -12,10 +15,6 @@ Crafty.scene('Racing', function() {
     Crafty.e("HorseField").player(50).generate(Game.settings.horsesPerRace, 60, 10)
 
     Track.startRace();
-
-    Crafty.bind("RaceFinished", function () {
-            Crafty.scene("Town");
-    });
 
 }, function() {
 

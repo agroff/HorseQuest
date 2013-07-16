@@ -1,6 +1,6 @@
 Game.settings = {
     horsesPerRace : 8,
-    totalLaps     : 3,
+    totalLaps     : 2,
 
     horses : {
         staminaIncrement : .3,
@@ -72,17 +72,17 @@ Game.settings = {
             }
             horseList = horseList.slice(0, -1);
             var string = this.amount + "GP on " + horseList + " " + this.type.abbr;
-            dbg(string);
             return string;
         },
+
         getPayment : function (order) {
-            var pays = this.amount + (this.amount * (this.odds.top / this.odds.bottom));
+            var pays = this.amount * (this.odds.top / this.odds.bottom);
             if (this.type.horses === 1) {
                 var position = this.type.place[0];
                 var horseNumber = this.places[position];
                 var place = Game.currentRace.horses[horseNumber - 1].place
                 if(place <= position) {
-                    return pays * this.type.payoff;
+                    return Math.round(pays * this.type.payoff)+this.amount;
                 }
                 return 0;
             }
@@ -95,7 +95,7 @@ Game.settings = {
             if (this.type.horses === 2) {
 
                 if(firstWon && secondWon) {
-                    return pays * this.type.payoff;
+                    return Math.round(pays * this.type.payoff)+this.amount;
                 }
                 return 0;
             }
@@ -104,7 +104,7 @@ Game.settings = {
                 var thirdWon = order[2] == thirdPlace
 
                 if(firstWon && secondWon && thirdWon) {
-                    return pays * this.type.payoff;
+                    return Math.round(pays * this.type.payoff)+this.amount;
                 }
                 return 0;
             }

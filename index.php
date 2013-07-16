@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Horse Racer: The Super Awesome Adventure [BETA]</title>
+    <title>Horse Quest: The Dawn of Beasts [BETA]</title>
     <script src="lib/crafty.js"></script>
     <script src="src/horseRacer.js.php"></script>
     <script>

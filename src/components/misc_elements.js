@@ -11,6 +11,20 @@ Crafty.c('DomActor', {
     }
 });
 
+Crafty.c("BetBoard", {
+    init : function () {
+        this.requires("DomActor, HTML")
+            .at(25, 14)
+            .css({ "background-color" : "#444",
+                "font-family"         : "mono",
+                "color"               : "#fff",
+                "display"             : "none",
+                "border-radius"       : "6px",
+                "padding-left"        : "5px" })
+            .attr({ w : 200, h : 120, z : -1 });
+    }
+});
+
 Crafty.c('DestinationPoint', {
     init : function () {
         this.requires('ColorBlock')
@@ -42,14 +56,14 @@ Crafty.c('Building', {
     },
 
     entrance : function (pos, newScene) {
-//        this.scene = newScene;
-//        this.w = pos.w;
-//        this.h = pos.h;
+        //        this.scene = newScene;
+        //        this.w = pos.w;
+        //        this.h = pos.h;
         this.requires("Collision")
-            .onHit("PlayerCharacter",  function(){
+            .onHit("PlayerCharacter", function () {
                 dbg("Hitting Building");
 
-                if(typeof newScene === 'function'){
+                if (typeof newScene === 'function') {
                     return newScene();
                 }
 
@@ -61,7 +75,7 @@ Crafty.c('Building', {
 
 Crafty.c('GoldBar', {
     init : function () {
-        dbg("gold bar")
+        //        dbg("gold bar")
         this.requires("Actor, Solid, Image");
         this.image('assets/hud.png');
         this.txt = Crafty.e("2D, DOM, Text");
@@ -70,19 +84,19 @@ Crafty.c('GoldBar', {
         this.txt.x = 60;
         this.txt.y = 20;
         this.txt.css({
-            "font-family": "mono",
-            "font-size": "20px",
-            "color": "#fff"
+            "font-family" : "mono",
+            "font-size"   : "20px",
+            "color"       : "#fff"
         });
-//        dbg("gold bar: x"+this.x);
+        //        dbg("gold bar: x"+this.x);
         this.addGold(0);
     },
 
-    addGold: function(amount){
-        if(amount > 0){
+    addGold : function (amount) {
+        if (amount > 0) {
             Crafty.audio.play('goldUp');
         }
-        if(amount < 0){
+        if (amount < 0) {
             Crafty.audio.play('goldDown');
         }
 

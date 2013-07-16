@@ -1,6 +1,8 @@
 // This is the player-controlled character
 Crafty.c('PlayerCharacter', {
 
+    _nextPosition: {x:50,y:10},
+
     save : {
         currentBets: [],
         gold   : 100,
@@ -8,13 +10,21 @@ Crafty.c('PlayerCharacter', {
     },
 
     init : function () {
-        this.requires('Actor, Fourway, Collision, spr_player, SpriteAnimation')
+        var that = this;
+        this.requires('Actor, Fourway, Persist, Collision, spr_player, SpriteAnimation')
             .fourway(2)
             .stopOnSolids()
             .animate('PlayerMovingUp', 0, 0, 2)
             .animate('PlayerMovingRight', 0, 1, 2)
             .animate('PlayerMovingDown', 0, 2, 2)
             .animate('PlayerMovingLeft', 0, 3, 2);
+
+        dbg("Character Initialization");
+
+        Crafty.bind("SceneChange", function(){
+//            that.show();
+            //this.at(this._nextPosition.x,this._nextPosition.y);
+        })
 
         // Watch for a change of direction and switch animations accordingly
         var animation_speed = 4;
@@ -37,12 +47,27 @@ Crafty.c('PlayerCharacter', {
         });
     },
 
+    hide: function(){
+        this.visible = false;
+        this.stopMovement();
+        this.pause();
+    },
+    show: function(){
+        this.visible = true;
+        this.stopMovement();
+        this.unpause();
+    },
+
+    nextPosition: function(x,y){
+        //this._nextPosition = {x:x,y:y};
+    },
+
     pause        : function () {
-        dbg("Pausing");
+//        dbg("Pausing");
         this.disableControl();
     },
     unpause      : function () {
-        dbg("UN-Pausing");
+//        dbg("UN-Pausing");
         this.enableControl();
 
     },
@@ -58,10 +83,15 @@ Crafty.c('PlayerCharacter', {
     // Stops the movement
     stopMovement : function () {
         this._speed = 0;
+        this.stop();
         if (this._movement) {
             this.x -= this._movement.x;
             this.y -= this._movement.y;
+
         }
+        this._movement.x = 0;
+        this._movement.y = 0;
+
     }
 
 });

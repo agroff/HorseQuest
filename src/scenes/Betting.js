@@ -1,5 +1,7 @@
 Crafty.scene('Betting', function () {
-
+    Game.player.at(78,20);
+    Game.player.hide();
+    Game.currentRace.type = "bet";
 
     Track.reset();
 
@@ -7,18 +9,10 @@ Crafty.scene('Betting', function () {
 
     Track.ui();
 
-    Crafty.e("HorseField").generate(Game.settings.horsesPerRace, 60, 14)
+    Crafty.e("HorseField").generate(Game.settings.horsesPerRace, 70, 14)
 
 
-    var bets = Crafty.e("DomActor, HTML")
-        .at(25, 14)
-        .css({ "background-color" : "#444",
-            "font-family"         : "mono",
-            "color"               : "#fff",
-            "display"               : "none",
-            "border-radius"       : "6px",
-            "padding-left"        : "5px" })
-        .attr({ w : 200, h : 120, z: -1 });
+    var bets = Crafty.e("BetBoard");
 
     Crafty.bind("NewBet", function (bet) {
         bets.append('<p>' + bet.toString() + '</p>');
@@ -26,17 +20,6 @@ Crafty.scene('Betting', function () {
 
     Crafty.bind("RaceStarting", function (bet) {
         bets.css({"display":"block"});
-    });
-
-    Crafty.bind("RaceFinished", function () {
-        var order = Game.currentRace.order,
-            dialog = Track.getBetReport(order);
-
-
-        Crafty.e("Dialog").dialog(dialog, function(){
-            Track.payBets(order);
-            Crafty.scene("Town");
-        });
     });
 
     Crafty.e("BetUI").attr({z:27});

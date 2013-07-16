@@ -5,15 +5,18 @@ Crafty.scene('Town', function() {
         Game.currentRace.order = [];
     };
 
+    Game.player.hide();
+    Game.player.show();
+
 
     this.reset();
 
     Track.treeBox();
 
-    var char = Crafty.e("PlayerCharacter").at(40,6);
-    Game.player = char;
-    char.h = 20
-    char.w = 20
+//    var char = Crafty.e("PlayerCharacter").at(40,6);
+//    Game.player = char;
+//    char.h = 20
+//    char.w = 20
 
 
     Crafty.background("url('assets/town.png') ");

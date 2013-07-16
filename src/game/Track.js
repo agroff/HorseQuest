@@ -58,6 +58,7 @@ Track = {
     reset: function(){
         this.horses = [];
         Game.currentRace.order = [];
+        Game.currentRace.horses = [];
         Game.currentRace.started = false;
     },
 
@@ -128,6 +129,34 @@ Track = {
             Game.currentRace.started = true;
             Crafty.trigger("RaceStarted");
         }, 9500);
+    },
+
+    finishRace: function(){
+        if(Game.currentRace.type == "bet") {
+
+            var order = Game.currentRace.order,
+                dialog = this.getBetReport(order);
+
+            Crafty("BetBoard").destroy();
+//            Crafty("BetBoard").css({"display":"none"});
+
+
+            Crafty.e("Dialog").dialog(dialog, function(){
+                Track.payBets(order);
+                Crafty.scene("Town");
+            });
+
+            return;
+        }
+        //else, type is race
+        Crafty.scene("Town");
+    },
+
+    initialBindings: function(){
+        var that = this;
+        Crafty.bind("RaceFinished", function () {
+            that.finishRace();
+        });
     },
 
     getBetReport: function(order) {

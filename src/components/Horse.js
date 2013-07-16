@@ -271,7 +271,7 @@ Crafty.c("Horse", {
         this.speed = (speed / 100) + 2;
 //        this.speed = (speed / 100) + (this._number / 5) + 2;
 
-        dbg("#" + this._number + " speed: " + speed + " ("+this.speed+") ");
+        dbg("#" + this._number + " speed: " + speed + " ("+Math.round(this.speed * 100) / 100+") ");
 
         return this;
     },
@@ -329,7 +329,7 @@ Crafty.c("Horse", {
                 //                var totalGold = 40 * Game.settings.horsesPerRace;
                 if (this.place < 6) {
                     var inversePlace = Game.settings.horsesPerRace - this.place;
-                    dbg(inversePlace);
+//                    dbg(inversePlace);
                     Track.hud.goldBar.addGold(inversePlace * 10);
                 }
             }
@@ -340,7 +340,7 @@ Crafty.c("Horse", {
                 this.finishRace();
             }
         }
-        dbg("#" + this._number + " Finished Lap " + this.currentLap)
+//        dbg("#" + this._number + " Finished Lap " + this.currentLap)
 
     },
 
@@ -506,6 +506,7 @@ Crafty.c("HorseField", {
     generate : function (size, baseSpeed, variance) {
 
         var playerNumber = -1;
+        this.horses = [];
 
         if(this.playerSpeed > 0) {
             playerNumber = Crafty.math.randomInt(1,size);
@@ -530,7 +531,9 @@ Crafty.c("HorseField", {
             number++;
             position--;
         }
+        console.log(Game.currentRace.horses);
         Game.currentRace.horses = this.horses;
+        console.log(Game.currentRace.horses);
 
         return this;
     },

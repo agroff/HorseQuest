@@ -134,6 +134,7 @@ Crafty.scene('Loading', function () {
         Game.player = char;
         char.h = 20
         char.w = 20
+        Game.player.at(62,10);
 
 
         // Now that our sprites are ready to draw, start the game
