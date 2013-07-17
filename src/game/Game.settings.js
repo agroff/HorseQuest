@@ -2,6 +2,11 @@ Game.settings = {
     horsesPerRace : 8,
     totalLaps     : 2,
 
+    boost: {
+        increment :.1,
+        seconds : 2
+    },
+
     horses : {
         staminaIncrement : .3,
         maxStamina       : 200,

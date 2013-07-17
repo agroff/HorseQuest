@@ -17,6 +17,7 @@ Crafty.scene('Loading', function () {
         'assets/sound/goldDown.ogg',
         'assets/sound/click.ogg',
         'assets/sound/nope.ogg',
+        'assets/sound/boost.ogg',
         'assets/town.png',
         'assets/components.png',
         'assets/ui.png',
@@ -125,6 +126,7 @@ Crafty.scene('Loading', function () {
             horn     : ['assets/sound/horn.ogg'],
             goldUp   : ['assets/sound/goldUp.ogg'],
             goldDown : ['assets/sound/goldDown.ogg'],
+            boost: ['assets/sound/boost.ogg'],
             click: ['assets/sound/click.ogg'],
             nope: ['assets/sound/nope.ogg']
         });

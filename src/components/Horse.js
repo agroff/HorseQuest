@@ -193,6 +193,7 @@ Crafty.c("Horse", {
     baseSpeed      : 2.8,
     direction      : DIR.e,
     currentLap     : 0,
+    openingStretch: true,
     path           : {
         cX : 1000,
         cY : 290
@@ -345,6 +346,9 @@ Crafty.c("Horse", {
     },
 
     avoidHorses : function (data) {
+        if(this.openingStretch) {
+            return this.beginningCollision(data);
+        }
         //dbg("Avoiding")
         var otherHorse = data[0]["obj"],
             offset = 5,
@@ -388,6 +392,20 @@ Crafty.c("Horse", {
         //this.moveTowards(dest);
     },
 
+    beginningCollision: function(data){
+        var rnd = Crafty.math.randomInt(1,3);
+        var inc = 1.5;
+        if(rnd == 1) {
+            this.x += inc;
+            return;
+        }
+        if(rnd == 3) {
+            this.x -= inc;
+            return;
+        }
+        this.x += inc / 2;
+    },
+
 
     moveToPlace : function () {
 
@@ -401,7 +419,7 @@ Crafty.c("Horse", {
 
         if (distance < 20) {
             this.running = false;
-            this.trigger('NewDirection', DIR.w);
+            //this.trigger('NewDirection', DIR.w);
             this.stop();
             return;
         }
@@ -435,16 +453,26 @@ Crafty.c("AiHorse", {
 
 
 Crafty.c("PlayerHorse", {
+    isBoosted : false,
     init : function () {
         this.requires('Horse')
             .bind('KeyDown', function (e) {
                 var keys = Crafty.keys;
                 if (e.key == keys["UP_ARROW"] || e.key == keys["W"]) {
                     this.faster();
+                    return;
                 }
-                else if (e.key == keys["DOWN_ARROW"] || e.key == keys["S"]) {
+
+                if (e.key == keys["DOWN_ARROW"] || e.key == keys["S"]) {
                     this.slower();
+                    return;
                 }
+                if (e.key == keys["B"]) {
+                    this.tryBoost();
+                    return;
+                }
+
+
 
             })
             .bind('EnterFrame', function (e) {
@@ -469,6 +497,30 @@ Crafty.c("PlayerHorse", {
 //        Crafty.e("2D, Canvas, ")
         var tint = Crafty.e("2D, DOM, Grid, spr_downArrow").at(.5,-1);
         this.attach(tint);
+    },
+
+    tryBoost: function(){
+        var that = this,
+            increment = Game.settings.boost.increment;
+
+        //already boosted, do nothing
+        if(this.isBoosted){
+            return;
+        }
+
+        //not boosted, do boost
+        this.speed += increment;
+        this.isBoosted = true;
+        dbg("BOOSTING New Speed: "+this.speed);
+
+        Crafty.audio.play('boost');
+
+        //set timeout to unboost
+        setTimeout(function(){
+            that.speed -= increment;
+            that.isBoosted = false;
+            dbg("unboosting to"+that.speed);
+        }, Game.settings.boost.seconds * 1000)
     }
 });
 
@@ -514,6 +566,7 @@ Crafty.c("HorseField", {
 
         var number = 1;
         var position = 9;
+        var sortable = [];
         while (number <= size) {
 
             var ent = "AiHorse",
@@ -526,14 +579,19 @@ Crafty.c("HorseField", {
 
             var horse = Crafty.e(ent).at(24, position).number(number).setSpeed(speed);
 
+            sortable.push({num:number,speed: speed});
             this.horses.push(horse);
 
             number++;
             position--;
         }
-        console.log(Game.currentRace.horses);
         Game.currentRace.horses = this.horses;
-        console.log(Game.currentRace.horses);
+
+        sortable.sort(function(a,b){return b.speed- a.speed});
+
+        for(var i in sortable) {
+            dbg("#"+sortable[i].num +": "+sortable[i].speed)
+        }
 
         return this;
     },

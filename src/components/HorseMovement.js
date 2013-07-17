@@ -4,7 +4,8 @@ Crafty.c("HorseMovement", {
 
     init : function () {
         this.requires("Collision");
-        this.bind("EnterFrame", this.doMovement);
+        this.bind("EnterFrame", this.doMovement)
+            .bind("NewDirection", this.alterSpeed);
     },
 
     unmove : function () {
@@ -12,6 +13,15 @@ Crafty.c("HorseMovement", {
         //        this.y = this.yInit;
         //        this.x -= this.movement.x;
         //        this.y -= this.movement.y;
+    },
+
+    alterSpeed: function(){
+        var toAdd = (Crafty.math.randomInt(1,5) - 3) / 26;
+        this.speed += toAdd;
+        //dbg("#"+this._number + " added speed: " + toAdd)
+        if(this.openingStretch === true) {
+            this.openingStretch = false;
+        }
     },
 
     doMovement : function () {
