@@ -3,8 +3,8 @@ Game.settings = {
     totalLaps     : 2,
 
     boost: {
-        increment :.1,
-        seconds : 2
+        increment :.2,
+        seconds : 3
     },
 
     horses : {

@@ -143,6 +143,10 @@ Game = {
 
         Track.initialBindings();
 
+        Crafty.modules({ 'crafty-debug-bar': 'release' }, function () {
+            Crafty.debugBar.show();
+        });
+
         // Simply start the "Loading" scene to get things going
         Crafty.scene('Loading');
     }

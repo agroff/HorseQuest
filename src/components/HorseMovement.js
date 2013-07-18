@@ -16,7 +16,7 @@ Crafty.c("HorseMovement", {
     },
 
     alterSpeed: function(){
-        var toAdd = (Crafty.math.randomInt(1,5) - 3) / 26;
+        var toAdd = (Crafty.math.randomInt(1,8) - 5) / 26;
         this.speed += toAdd;
         //dbg("#"+this._number + " added speed: " + toAdd)
         if(this.openingStretch === true) {

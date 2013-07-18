@@ -13,7 +13,8 @@ Crafty.scene('Town', function() {
 
     Track.treeBox();
 
-//    var char = Crafty.e("PlayerCharacter").at(40,6);
+
+    //    var char = Crafty.e("PlayerCharacter").at(40,6);
 //    Game.player = char;
 //    char.h = 20
 //    char.w = 20

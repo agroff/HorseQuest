@@ -269,7 +269,12 @@ Crafty.c("Horse", {
     },
 
     setSpeed : function (speed) {
+
         this.speed = (speed / 100) + 2;
+
+        if(!this.initialSpeed) {
+            this.initialSpeed = this.speed;
+        }
 //        this.speed = (speed / 100) + (this._number / 5) + 2;
 
         dbg("#" + this._number + " speed: " + speed + " ("+Math.round(this.speed * 100) / 100+") ");
@@ -325,6 +330,8 @@ Crafty.c("Horse", {
             Game.currentRace.order.push(this._number);
 
             this.place = Game.currentRace.order.length;
+
+            dbg("#"+this._number + " Speed Diff: " +Math.round((this.speed - this.initialSpeed) *100))
 
             if (this.has("PlayerHorse")) {
                 //                var totalGold = 40 * Game.settings.horsesPerRace;
