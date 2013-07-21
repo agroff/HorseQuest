@@ -20,6 +20,7 @@ Crafty.scene('Loading', function () {
         'assets/sound/boost.ogg',
         'assets/town.png',
         'assets/components.png',
+        'assets/dialogFade.png',
         'assets/ui.png',
         'assets/dialog.png',
         'assets/horse.png'], function () {

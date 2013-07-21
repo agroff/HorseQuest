@@ -25,6 +25,9 @@ incl('game/game.js');
 
 includeFolder('game');
 includeFolder('components');
+
+incl('dialogs/vars.js');
+
 includeFolder('dialogs');
 includeFolder('scenes');
 

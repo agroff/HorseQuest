@@ -26,10 +26,8 @@ Crafty.scene('Town', function() {
         .at(70,7)
         .image("spr_register")
         .entrance({w:250,h:50}, function(){
-            Track.hud.goldBar.addGold(-40);
-
             Crafty.e("Dialog").dialog("enterRace", function(){
-                Crafty.scene("Racing")
+                //Crafty.scene("Racing")
             });
         });
 
@@ -41,7 +39,7 @@ Crafty.scene('Town', function() {
         .image("spr_bet")
         .entrance({x:250,y:250}, function(){
             Crafty.e("Dialog").dialog("enterBet", function(){
-                Crafty.scene("Betting")
+
             });
         });
 

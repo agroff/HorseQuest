@@ -18,6 +18,17 @@
             height:700px;
             overflow: auto;
         }
+        .choice{
+            color:#CCC;
+        }
+        .dialogChoice{
+            cursor: pointer;
+            color:#CCC;
+        }
+        .dialogChoice:hover,
+        .chosenDialogChoice{
+            color:#FFF;
+        }
     </style>
 </head>
 <body>

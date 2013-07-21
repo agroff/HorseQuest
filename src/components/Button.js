@@ -26,11 +26,19 @@ Crafty.c("Button", {
             return this.textValue;
         }
 
+        if(this.textElement != undefined) {
+            this.textElement.text(value);
+            this.textValue = text;
+            return;
+        }
+
         var that = this;
         var text = Crafty.e("2D, DOM, Text")
             .text(value).attr({x : 0, y : 9, w : that.w})
             .css($bttnText)
         this.attach(text);
+
+        this.textElement = text;
 
         this.textValue = value;
         return this;
@@ -46,7 +54,7 @@ Crafty.c("Button", {
 
     inform: function(success){
         if(success === true) {
-            Crafty.audio.play("click");
+            Crafty.audio.play("click", 1,.5);
             return;
         }
         Crafty.audio.play("nope");

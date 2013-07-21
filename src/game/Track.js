@@ -1,3 +1,30 @@
+AdHocHorseRacerReport = function () {
+    var currentIndex = 1;
+
+    this.has = {
+        skipButton  : false,
+        closeButton : false
+    };
+
+    this.text = {};
+
+    this.push = function(newText){
+        this.text[currentIndex] = {
+            next : -1,
+            text : newText
+        }
+
+        if(currentIndex > 1){
+            this.text[currentIndex - 1].next = currentIndex;
+        }
+
+        currentIndex++;
+    }
+
+
+    return this;
+};
+
 Track = {
 
     hud : {
@@ -55,7 +82,7 @@ Track = {
         return d;
     },
 
-    reset: function(){
+    reset : function () {
         this.horses = [];
         Game.currentRace.order = [];
         Game.currentRace.horses = [];
@@ -122,26 +149,26 @@ Track = {
         this.hud.goldBar = Crafty.e('GoldBar').at(1, 0);
     },
 
-    startRace: function(){
+    startRace : function () {
         Crafty.audio.play('horn');
 
-        setTimeout(function(){
+        setTimeout(function () {
             Game.currentRace.started = true;
             Crafty.trigger("RaceStarted");
         }, 9500);
     },
 
-    finishRace: function(){
-        if(Game.currentRace.type == "bet") {
+    finishRace : function () {
+        if (Game.currentRace.type == "bet") {
 
             var order = Game.currentRace.order,
                 dialog = this.getBetReport(order);
 
             Crafty("BetBoard").destroy();
-//            Crafty("BetBoard").css({"display":"none"});
+            //            Crafty("BetBoard").css({"display":"none"});
 
 
-            Crafty.e("Dialog").dialog(dialog, function(){
+            Crafty.e("Dialog").dialog(dialog, function () {
                 Track.payBets(order);
                 Crafty.scene("Town");
             });
@@ -152,23 +179,25 @@ Track = {
         Crafty.scene("Town");
     },
 
-    initialBindings: function(){
+    initialBindings : function () {
         var that = this;
         Crafty.bind("RaceFinished", function () {
             that.finishRace();
         });
     },
 
-    getBetReport: function(order) {
+    getBetReport : function (order) {
         var bets = Game.player.save.currentBets,
-            report = [];
-        for(var i in bets) {
+            reportIndex = 1,
+            report = new AdHocHorseRacerReport();
+
+        for (var i in bets) {
             var bet = bets[i]
-            report.push("Checking Bet:"+bet.toString());
+            report.push("Checking Bet:" + bet.toString());
 
             var paid = bet.paid(order);
-            if( paid > 0) {
-                report.push("PAID: "+paid+"GP");
+            if (paid > 0) {
+                report.push("PAID: " + paid + "GP");
             }
             else {
                 report.push("Lost...");
@@ -178,10 +207,10 @@ Track = {
         return report;
     },
 
-    payBets: function(order){
+    payBets : function (order) {
         var bets = Game.player.save.currentBets,
             report = [];
-        for(var i in bets) {
+        for (var i in bets) {
             var bet = bets[i]
             Track.hud.goldBar.addGold(bet.paid(order));
         }
