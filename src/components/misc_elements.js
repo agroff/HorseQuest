@@ -44,34 +44,7 @@ Crafty.c('DestinationPoint', {
 
 });
 
-Crafty.c('Building', {
-    init : function () {
-        this.requires("Actor")
-    },
 
-    image : function (spriteName) {
-        this.requires(spriteName);
-        return this;
-
-    },
-
-    entrance : function (pos, newScene) {
-        //        this.scene = newScene;
-        //        this.w = pos.w;
-        //        this.h = pos.h;
-        this.requires("Collision")
-            .onHit("PlayerCharacter", function () {
-                dbg("Hitting Building");
-
-                if (typeof newScene === 'function') {
-                    return newScene();
-                }
-
-                Crafty.scene(newScene);
-            });
-        return this;
-    }
-});
 
 Crafty.c('GoldBar', {
     init : function () {

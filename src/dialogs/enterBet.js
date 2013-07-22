@@ -1,6 +1,3 @@
-if (!Game.dialogs) {
-    Game.dialogs = {};
-}
 Game.dialogs.enterBet = {
 
     has : {

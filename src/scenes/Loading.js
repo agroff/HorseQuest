@@ -77,17 +77,22 @@ Crafty.scene('Loading', function () {
             spr_second    : [5, 7, 1, 1],
             spr_third     : [5, 8, 1, 1],
             spr_betBox    : [8, 0, 5, 3.6],
+            spr_tent: [13, 0, 2, 1],
+            spr_farm: [8, 4, 8, 3.5],
+            spr_pub: [13, 1.3, 2.2, 1.7],
+            spr_lake: [7, 8, 7, 3.2],
+            spr_auction: [0, 9, 3.5, 2.6],
             spr_cancel    : [3, 6, 1, 2]
         });
 
-        Crafty.e("2D, DOM, Grid, number_1").at(3, 3);
-        Crafty.e("2D, DOM, Grid, number_2").at(8, 3);
-        Crafty.e("2D, DOM, Grid, number_3").at(13, 3);
-        Crafty.e("2D, DOM, Grid, number_4").at(18, 3);
-        Crafty.e("2D, DOM, Grid, number_5").at(3, 9);
-        Crafty.e("2D, DOM, Grid, number_6").at(8, 9);
-        Crafty.e("2D, DOM, Grid, number_7").at(13, 9);
-        Crafty.e("2D, DOM, Grid, number_8").at(18, 9);
+//        Crafty.e("2D, DOM, Grid, number_1").at(3, 3);
+//        Crafty.e("2D, DOM, Grid, number_2").at(8, 3);
+//        Crafty.e("2D, DOM, Grid, number_3").at(13, 3);
+//        Crafty.e("2D, DOM, Grid, number_4").at(18, 3);
+//        Crafty.e("2D, DOM, Grid, number_5").at(3, 9);
+//        Crafty.e("2D, DOM, Grid, number_6").at(8, 9);
+//        Crafty.e("2D, DOM, Grid, number_7").at(13, 9);
+//        Crafty.e("2D, DOM, Grid, number_8").at(18, 9);
         Crafty.e("2D, DOM, Grid, spr_upArrow").at(18, 14);
         Crafty.e("2D, DOM, Grid, spr_downArrow").at(18, 15);
         Crafty.e("2D, DOM, Grid, spr_bttn").at(3, 22);
@@ -110,6 +115,19 @@ Crafty.scene('Loading', function () {
         y += 4;
         Crafty.e("2D, DOM, Grid, spr_betBox").at(x, y);
         y += 4;
+
+        x+= 6;
+        y = 2;
+        Crafty.e("2D, DOM, Grid, spr_farm").at(x, y);
+        x+= 17;
+        Crafty.e("2D, DOM, Grid, spr_lake").at(x, y);
+        y += 10
+        x -= 19
+        Crafty.e("2D, DOM, Grid, spr_tent").at(x, y);
+        x+= 4
+        Crafty.e("2D, DOM, Grid, spr_pub").at(x, y);
+        x+= 7
+        Crafty.e("2D, DOM, Grid, spr_auction").at(x, y);
 
         Crafty.e("Button").at(3, 20).click(function () {
             alert("regular")
